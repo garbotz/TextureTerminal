@@ -1,40 +1,46 @@
 #!/usr/bin/python
 
-import random, sys, struct, termios, fcntl, os
+import random, sys, struct, termios, fcntl, os, time
 
-c0 = ['a','b','c','d','f','g','i','j','l','m','o','p','q','r','t','v','w','x',' ','.']
-c1 = [' ','\\','/',' ']
-c2 = ['\\','/']
-c3 = ['<','>','v','^']
-c4 = ['f','x','J','l','l','l','L','u'] # the jungle
-c5 = ['N','M','D','A','A','n','t','T','k','a','z','Z','X','x','u','_','_','_','_'] # the city
-c6 = ['[',']','|','-','{','}','#','(',')',' ',',']
-c7 = [']','[',' ','+','-']
-c8 = [',','.',' ','.','.','.',' ',' ',' ',' ',' ',' ',' ',' ',' ']
-c9 = ['}','{',':','.',')','(','[',']']
-c10 = [' ', '.', ',', '\'', 'l', ':', ';', '~', '`', '*', '-', '+', '$', ']', '\\', '/']
-c11 = ['_','-','|']
-c12 = ['_',' ', '-']
-c13 = ['0','1','2','3','4','5','6','7','8','9']
-c14 = ['i ', 'me ', 'you ','us ', 'them ']
-c15 = ['a8',' ', 'b4',' ','n3',' ', 'o2', ' ', 'p7', ' ']
+c0 = 	['a', 'b', 'c', 'd', 'f', 'g', 'i', 'j', 'l', 'm', 'o', 'p', 'q', 'r', 't', 'v', 'w', 'x', '.']
+c1 = 	['\\', '/'] # slants
+c2 = 	['<', '>', 'v', '^'] # directional
+c3 = 	['f', 'x', 'J', 'l', 'l', 'l', 'L', 'u'] # the jungle
+c4 = 	['N', 'M', 'D', 'A', 'A', 'n', 't', 'T', 'k', 'a', 'z', 'Z', 'X', 'x', 'u', '_', '_', '_', '_'] # the city
+c5 = 	['[', ']', '|', '-', '{', '}', '#', '(', ')', ',']
+c6 = 	[']', '[', '+', '-']
+c7 = 	[',', '.', '.', '.', '.']
+c8 = 	['}', '{', ':', '.', ')', '(', '[', ']']
+c9 = 	['.', ',', '\'', 'l', ':', ';', '~', '`', '*', '-', '+', '$', ']', '\\', '/']
+c10 = 	['_', '-', '|']
+c11 = 	['_', '-']
+c12 = 	['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+c13 = 	['!', '@', '#', '$', '%', '^', '&', '*']
+c14 = 	['!', '|', 'l', 'I', '1']
+c15 =	['0', 'O', 'o', 'c', 'u', '@']
+c16 = 	['~', '`', '-', '=', '+']
 
-chars = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13]
-# chars = [c1, c2, c3, c6, c7, c8, c9, c10, c11, c12]
+# chars = [c0, c1, c2, c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16]
+# chars = [c16, c14, c7, c10, c1]
 
-currentcolor = '\033[36m'
-previouscolor = '\033[36m'
+chars = [c0, c12, c11]
+
+currentcolor = '\033[30m\033[47m'
+previouscolor = '\033[37m\033[40m'
+# currentcolor = '\033[31m'
+# previouscolor = '\033[34m'
+# currentcolor = '\033[37m'
+# previouscolor = '\033[34m'
 
 phrase = ""
 previous_set = chars[0]
 current_set = chars[1]
 transitioning = False
-line_counts = 100
+line_counts = 50
 line_count = line_counts
-transition_length = 100
+transition_length = 300
 transition_iter = transition_length
-blank_chance = 0.9
-# raw_input()
+blank_chance = 0.3
 
 def loop():
 	while True:
@@ -45,6 +51,7 @@ def add_line():
 	global transitioning, transition_iter, transition_length, previouscolor
 	global currentcolor, blank_chance
 
+	time.sleep(0.0001);
 	# Reset phrase
 	phrase = ""
 
@@ -84,7 +91,6 @@ def add_line():
 			transitioning = True
 		else:
 			line_count -= 1
-
 
 	# Print phrase
 	print('{}'.format(phrase))
